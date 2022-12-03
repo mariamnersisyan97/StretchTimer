@@ -1,5 +1,6 @@
 # Flask useful routes functions
-from flask import flash, render_template, redirect, url_for, abort, Blueprint
+import time
+from flask import flash, render_template, redirect, url_for, abort, Blueprint, Response, request, jsonify
 # For random user image
 from flask_gravatar import Gravatar
 # Managing logged in Users status
@@ -24,19 +25,25 @@ app_accounts = Blueprint('accounts_route', __name__,
                          template_folder='templates/accounts')
 
 
+# Index Route
 @app_index.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
 
-@app_index.route('/register', methods=["GET", "POST"])
+@app_index.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app_accounts.route('/register', methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         email = form.email.data
         if User.query.filter_by(email=email).first():
             flash("Email already exists. Try to log in.")
-            return redirect(url_for("login"))
+            return redirect(url_for("accounts_route.login"))
         password = generate_password_hash(form.password.data, salt_length=8)
         name = form.name.data
         new_user = User(email=email, password=password, name=name)
@@ -61,12 +68,12 @@ def login():
             flash("Wrong Password, Try Again.")
             return render_template("login.html", form=form)
         login_user(user)
-        return redirect(url_for("home"))
+        return redirect(url_for("index_route.home"))
     return render_template("login.html", form=form)
-#
-#
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect(url_for('get_all_posts'))
+
+
+@app_accounts.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index_route.home'))
