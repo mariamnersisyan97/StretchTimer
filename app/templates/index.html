@@ -1,14 +1,61 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+    {% include "includes/header.html" %}
+    <head>
+        <title>StretchTimer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Document</title>
-</head>
-<body>
-<h1>Lets Go!</h1>
-</body>
-</html>
+    </head>
+
+    <body>
+    <audio id="over_music">
+        <source src="{{ url_for('static', filename='beepbeep.mp3') }}">
+    </audio>
+    <div class="box container  text-center">
+        <h2>Countdown</h2>
+        <div class="row">
+            <div class="col-md-8 col-xs-8">
+                <div class="timer ">
+                    <p class="time" id="time">25 : 00</p>
+                </div>
+                <div class="text-left">
+                    Work <span class="badge" id="workSignal" style="background-color: orange"> </span>
+                    Rest <span class="badge" id="restSignal"> </span>
+                </div>
+                <br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0"
+                         aria-valuemax="100" style="width:0">
+                    </div>
+                </div>
+                <p class="mobile-control">
+                    <a class="top-bt btn btn-primary play" href="#">Play</a>
+                    <a class="top-bt btn btn-primary stop" href="#">Pause</a>
+                    <a class="low-bt btn btn-primary reset" href="#">Reset</a>
+                </p>
+            </div>
+            <br>
+            <div class="panel col-md-4 col-xs-4">
+                <p>
+                    <a class="btn badge badge-primary" id="workMore">+</a> <span class="text"> <span contenteditable
+                                                                                                     id="workTime">25</span>
+            Minutes </span><a class="btn badge badge-primary" id="workLess">-</a>
+                </p><br>
+                <p>
+                    <a class="btn badge badge-primary" id="restMore">+</a><span class="text"> <span contenteditable
+                                                                                                    id="restTime">5</span>
+            Minutes </span><a class="btn badge badge-primary" id="restLess">-</a>
+                </p>
+                <p class="desktop-control">
+                    <a class="top-bt btn btn-primary play" href="#">Play</a>
+                    <a class="top-bt btn btn-primary pause" href="#">Pause</a>
+                    <a class="low-bt btn btn-primary reset" href="#">Reset</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% include "includes/footer.html" %}
+{% endblock %}
