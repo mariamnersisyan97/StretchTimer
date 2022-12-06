@@ -1,7 +1,6 @@
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -21,11 +20,12 @@ class User(UserMixin, db.Model):
     # many_to_user_relation = relationship("TABLE_CLASS_NAME", back_populates="user")
 
     def __init__(self, name=None, email=None, password=None, img_url=None):
-        self.name = name
         self.email = email
+        self.password = password
+        self.name = name
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.name
 
 # CREATE ALL TABLES
 # with app_bp.app_context():

@@ -1,12 +1,12 @@
 # Flask useful routes functions
 import time
+
 from flask import flash, render_template, redirect, url_for, abort, Blueprint, Response, request, jsonify
 # For random user image
 from flask_gravatar import Gravatar
 # Managing logged in Users status
 from flask_login import login_user, login_required, current_user, logout_user
 # Password Security
-from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
 # FORMS
 from app.forms import RegisterForm, LoginForm
@@ -36,6 +36,12 @@ def about():
     return render_template('about.html')
 
 
+@app_accounts.route('/user-settings', methods=['GET', 'POST'])
+@login_required
+def user_settings():
+    return render_template('user-settings.html')
+
+
 @app_accounts.route('/register', methods=["GET", "POST"])
 def register():
     form = RegisterForm()
@@ -50,7 +56,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         login_user(User.query.filter_by(email=email).first())
-        return redirect(url_for("home"))
+        return redirect(url_for("index_route.home"))
     return render_template("register.html", form=form)
 
 
