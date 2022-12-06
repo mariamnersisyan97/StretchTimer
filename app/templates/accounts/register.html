@@ -19,19 +19,34 @@
             </div>
         </div>
     </header>
-
+    <br>
     <div class="container">
         <div class="row">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="col-lg-8 col-md-10 mx-auto content" style="width: 25%">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
             </div>
+            {#        <div class="col-lg-8 col-md-10 mx-auto">#}
+            {#            <div class="input-group">#}
+            {#                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>#}
+            {#                {{ form.email(placeholder="name@example.com", class_="form-control") }}#}
+            {#            </div>#}
+            {#            <div class="input-group">#}
+            {#                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>#}
+            {#                {{ form.password(placeholder="Password", class_="form-control") }}#}
+            {#            </div>#}
+            {#            <div class="input-group">#}
+            {#                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>#}
+            {#                {{ form.name() }}#}
+            {#            </div>#}
+            {#            {{ form.submit() }}#}
+
         </div>
     </div>
 

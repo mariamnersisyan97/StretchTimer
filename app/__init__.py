@@ -11,9 +11,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stretch-timer.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 # Database Init
 db.init_app(app)
-
 # TODO: Hide app config in environment variable
 # app.config.from_object(os.environ['APP_SETTINGS'])
 
